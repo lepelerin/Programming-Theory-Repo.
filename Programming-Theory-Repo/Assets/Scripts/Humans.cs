@@ -44,4 +44,11 @@ public class Humans : GeneralControl
             base.Scared(position);
         }
     }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Door"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
