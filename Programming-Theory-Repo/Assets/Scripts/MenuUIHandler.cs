@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuUIHandler : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void Save(string path)
     {
-
+        SceneManager.LoadScene(1);
     }
 
     public void Back()
