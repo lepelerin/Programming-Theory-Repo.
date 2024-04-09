@@ -10,7 +10,7 @@ public class PlayerControl : GeneralControl
     [SerializeField] float rotaionSpeed;
     // Start is called before the first frame update
 
-    public delegate void Notify();
+    public delegate void Notify(Transform transform);
     public event Notify ScaringHumans;
 
 
@@ -60,7 +60,7 @@ public class PlayerControl : GeneralControl
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            ScaringHumans?.Invoke();
+            ScaringHumans?.Invoke(transform);
         }
     }
 
@@ -70,6 +70,13 @@ public class PlayerControl : GeneralControl
         if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Human"))
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Human"))
+        {
+            ScaringHumans -= other.gameObject.GetComponentInParent<Humans>().Scared;
         }
     }
 }

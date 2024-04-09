@@ -9,7 +9,7 @@ public class Humans : GeneralControl
     // Start is called before the first frame update
     void Start()
     {
-        
+        controlRigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,8 +24,8 @@ public class Humans : GeneralControl
         }
     }
 
-    public void Scared()
+    public override void Scared(Transform transform)
     {
-        Debug.Log("AAAAHHHh");
+        base.Scared(transform);
     }
 }
