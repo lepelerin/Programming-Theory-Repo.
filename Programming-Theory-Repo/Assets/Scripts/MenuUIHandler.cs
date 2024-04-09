@@ -20,4 +20,15 @@ public class MenuUIHandler : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    public void Save(string path)
+    {
+
+    }
+
+    public void Back()
+    {
+        startScreen.SetActive(true);
+        SaveScreen.SetActive(false);
+    }
 }
