@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : GeneralControl
 {
     [SerializeField] GameObject targetCamera;
     [SerializeField] float speed;
@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        DetectOther();
         ScareHuman();
     }
     void FixedUpdate()
