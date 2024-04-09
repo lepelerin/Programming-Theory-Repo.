@@ -14,6 +14,10 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        ScareHuman();
+    }
     void FixedUpdate()
     {
         RotateCamera();
@@ -45,5 +49,12 @@ public class PlayerControl : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
         transform.Translate(Vector3.right *  Time.deltaTime * inputHorizontal * speed);
 
+    }
+    void ScareHuman()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("Boo");
+        }
     }
 }
