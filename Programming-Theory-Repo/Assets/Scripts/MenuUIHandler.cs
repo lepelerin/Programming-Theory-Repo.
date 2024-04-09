@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    [SerializeField] GameObject startScreen;
+    [SerializeField] GameObject SaveScreen;
+    public void StartGame()
+    {
+        startScreen.SetActive(false);
+        SaveScreen.SetActive(true);
+    }
     public void Quit()
     {
 #if UNITY_EDITOR
