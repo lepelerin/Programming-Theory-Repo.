@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Humans : GeneralControl
 {
+    private List<GameObject> dogs = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +19,29 @@ public class Humans : GeneralControl
     }
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Player"))
+        if (other.gameObject.CompareTag("Dog"))
         {
 
+            dogs.Add(other.gameObject.transform.parent.gameObject);
         }
     }
-
-    public override void Scared(Transform transform)
+    private void OnTriggerExit(Collider other)
     {
-        base.Scared(transform);
+
+        if (other.gameObject.CompareTag("Dog"))
+        {
+            dogs.Add(other.gameObject.transform.parent.gameObject);
+        }
+    }
+    public override void Scared(Vector3 position)
+    {
+        if(dogs.Count > 0)
+        {
+            controlRigidbody.AddForce(-GetScaredDirection(dogs[0].transform.position) * forceMultiplicator, ForceMode.Impulse);
+        }
+        else
+        {
+            base.Scared(position);
+        }
     }
 }

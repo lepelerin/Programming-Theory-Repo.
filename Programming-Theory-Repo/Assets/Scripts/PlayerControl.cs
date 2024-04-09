@@ -10,12 +10,16 @@ public class PlayerControl : GeneralControl
     [SerializeField] float rotaionSpeed;
     // Start is called before the first frame update
 
-    public delegate void Notify(Transform transform);
+    public delegate void Notify(Vector3 position);
     public event Notify ScaringHumans;
 
+    private List<GameObject> cats = new List<GameObject>();
+
+    private
 
     void Start()
     {
+        controlRigidbody = GetComponent<Rigidbody>();
         targetCamera.transform.rotation = transform.rotation;
     }
 
@@ -44,7 +48,7 @@ public class PlayerControl : GeneralControl
     }
     void MovePlayer()
     {
-        float inputVertical=Input.GetAxis("Vertical");
+        float inputVertical = Input.GetAxis("Vertical");
         float inputHorizontal = Input.GetAxis("Horizontal");
 
         if (inputHorizontal != 0 || inputVertical != 0)
@@ -53,30 +57,52 @@ public class PlayerControl : GeneralControl
         }
 
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
-        transform.Translate(Vector3.right *  Time.deltaTime * inputHorizontal * speed);
+        transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
 
     }
     void ScareHuman()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            ScaringHumans?.Invoke(transform);
+            if (cats.Count > 0)
+            {
+                Vector3 CatsVector = Vector3.zero;
+                for (int i = 0; i < cats.Count; i++)
+                {
+                    Debug.Log(cats[i].transform.position);
+                    CatsVector += cats[i].transform.position;
+                }
+                Debug.Log(CatsVector);
+                Scared(CatsVector);
+            }
+            else
+            {
+                ScaringHumans?.Invoke(transform.position);
+            }
         }
     }
 
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Human"))
+        if (other.gameObject.CompareTag("Human"))
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
+        }
+        if (other.gameObject.CompareTag("Cat"))
+        {
+            cats.Add(other.gameObject.transform.parent.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Human"))
+        if (other.gameObject.CompareTag("Human"))
         {
             ScaringHumans -= other.gameObject.GetComponentInParent<Humans>().Scared;
+        }
+        if (other.gameObject.CompareTag("Cat"))
+        {
+            cats.Remove(other.gameObject.transform.parent.gameObject);
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class GeneralControl : MonoBehaviour
 {
+    [SerializeField] protected float forceMultiplicator;
     protected List<GameObject> gameObjectsInRage = new List<GameObject>();
     protected Rigidbody controlRigidbody;
     // Start is called before the first frame update
@@ -27,12 +28,12 @@ public abstract class GeneralControl : MonoBehaviour
             Debug.Log(gameObject.name+ " / " +other.gameObject.name +" / "+ other.gameObject.GetComponentInParent<GeneralControl>().name);
         }
     }
-    public virtual void Scared(Transform transform)
+    public virtual void Scared(Vector3 position)
     {
-        controlRigidbody.AddForce(GetScaredDirection(transform),ForceMode.Impulse);
+        controlRigidbody.AddForce(GetScaredDirection(position) * forceMultiplicator, ForceMode.Impulse);
     }
-    protected Vector3 GetScaredDirection(Transform transform)
+    protected Vector3 GetScaredDirection(Vector3 position)
     {
-        return (this.transform.position - transform.position).normalized;
+        return (transform.position - position).normalized;
     }
 }
