@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class GeneralControl : MonoBehaviour
 {
-    [SerializeField] float detectRange;
-
+    protected List<GameObject> gameObjectsInRage = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -15,16 +14,16 @@ public abstract class GeneralControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DetectOther();
+
     }
 
-    protected void DetectOther()
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        Collider[] colliders;
-        colliders = Physics.OverlapSphere(transform.position, detectRange);
-        for (int i = 0; i < colliders.Length; i++)
+        if (other.gameObject.CompareTag("Detector"))
         {
-            Debug.Log(colliders[i].gameObject.transform.name);
+            gameObjectsInRage.Add(other.gameObject);
+            Debug.Log(gameObject.name+ " / " +other.gameObject.name +" / "+ other.gameObject.GetComponentInParent<GeneralControl>().name);
         }
     }
+
 }

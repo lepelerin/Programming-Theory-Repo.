@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class PlayerControl : GeneralControl
     [SerializeField] float speed;
     [SerializeField] float rotaionSpeed;
     // Start is called before the first frame update
+
+    public delegate void Notify();
+    public event Notify ScaringHumans;
+
+
     void Start()
     {
         targetCamera.transform.rotation = transform.rotation;
@@ -16,7 +22,6 @@ public class PlayerControl : GeneralControl
     // Update is called once per frame
     private void Update()
     {
-        DetectOther();
         ScareHuman();
     }
     void FixedUpdate()
@@ -55,7 +60,16 @@ public class PlayerControl : GeneralControl
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("Boo");
+            ScaringHumans?.Invoke();
+        }
+    }
+
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Detector") && other.gameObject.GetComponentInParent<GeneralControl>().CompareTag("Human"))
+        {
+            ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
         }
     }
 }
