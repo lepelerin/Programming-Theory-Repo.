@@ -8,6 +8,10 @@ public class PlayerControl : GeneralControl
     [SerializeField] GameObject targetCamera;
     [SerializeField] float speed;
     [SerializeField] float rotaionSpeed;
+
+    [SerializeField] GameObject ghost;
+    private Animator animatorGhost;
+
     // Start is called before the first frame update
 
     public delegate void Notify(Vector3 position);
@@ -21,6 +25,7 @@ public class PlayerControl : GeneralControl
     {
         controlRigidbody = GetComponent<Rigidbody>();
         targetCamera.transform.rotation = transform.rotation;
+        animatorGhost = ghost.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -62,8 +67,11 @@ public class PlayerControl : GeneralControl
     }
     void ScareHuman()
     {
+
         if (Input.GetButtonDown("Fire1"))
         {
+            animatorGhost.Play("attack");
+            Debug.Log("attack");
             if (cats.Count > 0)
             {
                 Vector3 CatsVector = Vector3.zero;
@@ -77,6 +85,7 @@ public class PlayerControl : GeneralControl
             }
             else
             {
+                animatorGhost.Play("attack");
                 ScaringHumans?.Invoke(transform.position);
             }
         }
