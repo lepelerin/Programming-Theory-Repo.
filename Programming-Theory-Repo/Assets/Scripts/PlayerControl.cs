@@ -11,7 +11,7 @@ public class PlayerControl : GeneralControl
 
     [SerializeField] GameObject ghost;
     private Animator animatorGhost;
-
+    private bool isattacking;
     // Start is called before the first frame update
 
     public delegate void Notify(Vector3 position);
@@ -58,9 +58,13 @@ public class PlayerControl : GeneralControl
         float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
         if (inputHorizontal != 0 || inputVertical != 0)
         {
+            animatorGhost.Play("move");
             transform.rotation = targetCamera.transform.rotation;
         }
-
+        else
+        {
+            animatorGhost.Play("idle");
+        }
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
         transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
         transform.Rotate(Vector3.up * angle);
@@ -72,8 +76,7 @@ public class PlayerControl : GeneralControl
 
         if (Input.GetButtonDown("Fire1"))
         {
-            animatorGhost.Play("attack");
-            Debug.Log("attack");
+
             if (cats.Count > 0)
             {
                 Vector3 CatsVector = Vector3.zero;
