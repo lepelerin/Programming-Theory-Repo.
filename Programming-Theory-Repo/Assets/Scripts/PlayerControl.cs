@@ -55,7 +55,7 @@ public class PlayerControl : GeneralControl
     {
         float inputVertical = Input.GetAxis("Vertical");
         float inputHorizontal = Input.GetAxis("Horizontal");
-
+        float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
         if (inputHorizontal != 0 || inputVertical != 0)
         {
             transform.rotation = targetCamera.transform.rotation;
@@ -63,6 +63,8 @@ public class PlayerControl : GeneralControl
 
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
         transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
+        transform.Rotate(Vector3.up * angle);
+
 
     }
     void ScareHuman()
