@@ -52,6 +52,7 @@ public class PlayerControl : GeneralControl
         float inputRotational = Input.GetAxis("Rotational");
         targetCamera.transform.Rotate(Vector3.up * Time.deltaTime * inputRotational * rotaionSpeed);
     }
+    //ABSTRACTION
     void MovePlayer()
     {
         float inputVertical = Input.GetAxis("Vertical");

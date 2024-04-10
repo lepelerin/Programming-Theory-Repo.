@@ -34,6 +34,8 @@ public class Humans : GeneralControl
             dogs.Add(other.gameObject.transform.parent.gameObject);
         }
     }
+
+    //POLYMORPHISM
     public override void Scared(Vector3 position)
     {
         if(dogs.Count > 0)
