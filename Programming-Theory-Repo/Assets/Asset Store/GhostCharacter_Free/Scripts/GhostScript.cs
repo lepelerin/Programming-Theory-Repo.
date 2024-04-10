@@ -39,13 +39,13 @@ public class GhostScript : MonoBehaviour
     {
         STATUS();
         GRAVITY();
-        Respawn();
+        //Respawn();
         // this character status
         if(!PlayerStatus.ContainsValue( true ))
         {
             MOVE();
             PlayerAttack();
-            Damage();
+            //Damage();
         }
         else if(PlayerStatus.ContainsValue( true ))
         {

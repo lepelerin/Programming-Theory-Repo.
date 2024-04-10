@@ -11,7 +11,7 @@ public class PlayerControl : GeneralControl
 
     [SerializeField] GameObject ghost;
     private Animator animatorGhost;
-    private bool isattacking;
+    private AudioSource audioSourceGhost;
     // Start is called before the first frame update
 
     public delegate void Notify(Vector3 position);
@@ -26,6 +26,7 @@ public class PlayerControl : GeneralControl
         controlRigidbody = GetComponent<Rigidbody>();
         targetCamera.transform.rotation = transform.rotation;
         animatorGhost = ghost.GetComponent<Animator>();
+        audioSourceGhost = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -76,7 +77,7 @@ public class PlayerControl : GeneralControl
 
         if (Input.GetButtonDown("Fire1"))
         {
-
+            audioSourceGhost.Play();
             if (cats.Count > 0)
             {
                 Vector3 CatsVector = Vector3.zero;
