@@ -99,6 +99,7 @@ public class PlayerControl : GeneralControl
 
     protected override void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
         if (other.gameObject.CompareTag("Human"))
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
