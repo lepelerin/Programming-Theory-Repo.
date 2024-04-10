@@ -7,11 +7,9 @@ public abstract class GeneralControl : MonoBehaviour
 {
     [SerializeField] protected float forceMultiplicator;
     protected List<GameObject> gameObjectsInRage = new List<GameObject>();
-    protected Rigidbody controlRigidbody;
     // Start is called before the first frame update
     void Start()
     {
-        controlRigidbody= GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,10 +26,10 @@ public abstract class GeneralControl : MonoBehaviour
             Debug.Log(gameObject.name+ " / " +other.gameObject.name +" / "+ other.gameObject.GetComponentInParent<GeneralControl>().name);
         }
     }
-    public virtual void Scared(Vector3 position)
-    {
-        controlRigidbody.AddForce(GetScaredDirection(position) * forceMultiplicator, ForceMode.Impulse);
-    }
+    public abstract void Scared(Vector3 position);
+    
+        
+    
     protected Vector3 GetScaredDirection(Vector3 position)
     {
         return (transform.position - position).normalized;

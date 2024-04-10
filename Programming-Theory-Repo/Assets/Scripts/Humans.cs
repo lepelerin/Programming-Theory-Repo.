@@ -5,18 +5,29 @@ using UnityEngine;
 
 public class Humans : GeneralControl
 {
+    [SerializeField] float speed;
     private List<GameObject> dogs = new List<GameObject>();
     private AudioSource audioSourceHuman;
+    private bool isScared = false;
+    private bool isScaredDog = false;
+    private Vector3 ghostPosition = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
-        controlRigidbody = GetComponent<Rigidbody>();
         audioSourceHuman = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (isScaredDog)
+        {
+            transform.Translate(-GetScaredDirection(dogs[0].transform.position) * Time.deltaTime * speed);
+        }
+        if (isScared)
+        {
+            transform.Translate(GetScaredDirection(ghostPosition) * Time.deltaTime * speed);
+        }
     }
     protected override void OnTriggerEnter(Collider other)
     {
@@ -42,14 +53,28 @@ public class Humans : GeneralControl
         {
             AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
             audioSource.Play();
-            controlRigidbody.AddForce(-GetScaredDirection(dogs[0].transform.position) * forceMultiplicator, ForceMode.Impulse);
+            isScaredDog = true;
+            StartCoroutine(ScaredDogNoMore());
         }
         else
         {
+            ghostPosition = position;
             audioSourceHuman.Play();
-            base.Scared(position);
+            isScared = true;
+            StartCoroutine(ScaredNoMore());
         }
     }
+    private IEnumerator ScaredDogNoMore()
+    {
+        yield return new WaitForSeconds(3);
+        isScaredDog = false;
+    }
+    private IEnumerator ScaredNoMore()
+    {
+        yield return new WaitForSeconds(3);
+        isScared = false;
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Door"))
