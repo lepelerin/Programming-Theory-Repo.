@@ -8,6 +8,10 @@ public class PlayerControl : GeneralControl
     [SerializeField] GameObject targetCamera;
     [SerializeField] float speed;
     [SerializeField] float rotaionSpeed;
+
+    [SerializeField] GameObject ghost;
+    private Animator animatorGhost;
+    private AudioSource audioSourceGhost;
     // Start is called before the first frame update
 
     public delegate void Notify(Vector3 position);
@@ -21,6 +25,8 @@ public class PlayerControl : GeneralControl
     {
         controlRigidbody = GetComponent<Rigidbody>();
         targetCamera.transform.rotation = transform.rotation;
+        animatorGhost = ghost.GetComponent<Animator>();
+        audioSourceGhost = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -46,37 +52,47 @@ public class PlayerControl : GeneralControl
         float inputRotational = Input.GetAxis("Rotational");
         targetCamera.transform.Rotate(Vector3.up * Time.deltaTime * inputRotational * rotaionSpeed);
     }
+    //ABSTRACTION
     void MovePlayer()
     {
         float inputVertical = Input.GetAxis("Vertical");
         float inputHorizontal = Input.GetAxis("Horizontal");
-
+        float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
         if (inputHorizontal != 0 || inputVertical != 0)
         {
+            animatorGhost.SetBool("IsMoving",true);
             transform.rotation = targetCamera.transform.rotation;
         }
-
+        else
+        {
+            animatorGhost.SetBool("IsMoving", false);
+        }
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
         transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
+        transform.Rotate(Vector3.up * angle);
+
 
     }
     void ScareHuman()
     {
+
         if (Input.GetButtonDown("Fire1"))
         {
+            audioSourceGhost.Play();
             if (cats.Count > 0)
             {
                 Vector3 CatsVector = Vector3.zero;
                 for (int i = 0; i < cats.Count; i++)
                 {
-                    Debug.Log(cats[i].transform.position);
+                    AudioSource audioSource = cats[i].GetComponent<AudioSource>();
+                    audioSource.Play();
                     CatsVector += cats[i].transform.position;
                 }
-                Debug.Log(CatsVector);
                 Scared(CatsVector);
             }
             else
             {
+                animatorGhost.Play("attack_shift");
                 ScaringHumans?.Invoke(transform.position);
             }
         }
@@ -85,6 +101,7 @@ public class PlayerControl : GeneralControl
 
     protected override void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
         if (other.gameObject.CompareTag("Human"))
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;

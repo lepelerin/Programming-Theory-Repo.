@@ -6,11 +6,12 @@ using UnityEngine;
 public class Humans : GeneralControl
 {
     private List<GameObject> dogs = new List<GameObject>();
-
+    private AudioSource audioSourceHuman;
     // Start is called before the first frame update
     void Start()
     {
         controlRigidbody = GetComponent<Rigidbody>();
+        audioSourceHuman = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,14 +34,19 @@ public class Humans : GeneralControl
             dogs.Add(other.gameObject.transform.parent.gameObject);
         }
     }
+
+    //POLYMORPHISM
     public override void Scared(Vector3 position)
     {
         if(dogs.Count > 0)
         {
+            AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
+            audioSource.Play();
             controlRigidbody.AddForce(-GetScaredDirection(dogs[0].transform.position) * forceMultiplicator, ForceMode.Impulse);
         }
         else
         {
+            audioSourceHuman.Play();
             base.Scared(position);
         }
     }
