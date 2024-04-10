@@ -36,7 +36,7 @@ public abstract class GeneralControl : MonoBehaviour
     }
     protected void RotateToward(Vector3 position)
     {
-        RotateToward(position,true);
+        RotateToward(position,false);
     }
     protected void RotateToward(Vector3 position,bool opposite)
     {

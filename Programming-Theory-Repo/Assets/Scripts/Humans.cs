@@ -49,7 +49,6 @@ public class Humans : GeneralControl
         {
             AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
             audioSource.Play();
-            Debug.Log(dogs[0].transform.position);
             RotateToward(dogs[0].transform.position);
         }
         else
