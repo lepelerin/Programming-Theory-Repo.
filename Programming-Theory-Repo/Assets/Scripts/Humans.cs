@@ -2,21 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Humans : GeneralControl
 {
+    [SerializeField] float speed;
     private List<GameObject> dogs = new List<GameObject>();
     private AudioSource audioSourceHuman;
+    private bool isScared = false;
     // Start is called before the first frame update
     void Start()
     {
-        controlRigidbody = GetComponent<Rigidbody>();
         audioSourceHuman = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
+        if (isScared)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        }
     }
     protected override void OnTriggerEnter(Collider other)
     {
@@ -31,7 +38,7 @@ public class Humans : GeneralControl
 
         if (other.gameObject.CompareTag("Dog"))
         {
-            dogs.Add(other.gameObject.transform.parent.gameObject);
+            dogs.Remove(other.gameObject.transform.parent.gameObject);
         }
     }
 
@@ -42,14 +49,24 @@ public class Humans : GeneralControl
         {
             AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
             audioSource.Play();
-            controlRigidbody.AddForce(-GetScaredDirection(dogs[0].transform.position) * forceMultiplicator, ForceMode.Impulse);
+            RotateToward(dogs[0].transform.position);
         }
         else
         {
             audioSourceHuman.Play();
-            base.Scared(position);
+            RotateToward(position, true);
         }
+        isScared = true;
+        StartCoroutine(ScaredNoMore());
     }
+
+
+    private IEnumerator ScaredNoMore()
+    {
+        yield return new WaitForSeconds(3);
+        isScared = false;
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Door"))
