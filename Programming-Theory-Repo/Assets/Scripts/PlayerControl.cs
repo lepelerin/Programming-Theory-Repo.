@@ -58,12 +58,12 @@ public class PlayerControl : GeneralControl
         float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
         if (inputHorizontal != 0 || inputVertical != 0)
         {
-            animatorGhost.Play("move");
+            animatorGhost.SetBool("IsMoving",true);
             transform.rotation = targetCamera.transform.rotation;
         }
         else
         {
-            animatorGhost.Play("idle");
+            animatorGhost.SetBool("IsMoving", false);
         }
         transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
         transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
@@ -90,7 +90,7 @@ public class PlayerControl : GeneralControl
             }
             else
             {
-                animatorGhost.Play("attack");
+                animatorGhost.Play("attack_shift");
                 ScaringHumans?.Invoke(transform.position);
             }
         }
