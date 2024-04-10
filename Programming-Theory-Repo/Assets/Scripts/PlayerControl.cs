@@ -128,10 +128,8 @@ public class PlayerControl : GeneralControl
 
     public override void Scared(Vector3 position)
     {
-        scaredVector = -GetScaredDirection(position);
-        scaredVector.y = 0;
-        float angle = Vector3.Angle(scaredVector,Vector3.forward);
-        transform.Rotate(Vector3.up * angle);
+        
+        RotateToward(position, true);
 
         IsScared = true;
         StartCoroutine(ScaredNoMore());

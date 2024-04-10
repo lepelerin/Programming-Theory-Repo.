@@ -34,4 +34,18 @@ public abstract class GeneralControl : MonoBehaviour
     {
         return (transform.position - position).normalized;
     }
+    protected void RotateToward(Vector3 position)
+    {
+        RotateToward(position,true);
+    }
+    protected void RotateToward(Vector3 position,bool opposite)
+    {
+        position.y = 0;
+        transform.LookAt(position);
+        transform.SetPositionAndRotation(transform.position, new Quaternion(0, transform.rotation.y, 0, transform.rotation.w));
+        if (opposite)
+        {
+            transform.Rotate(Vector3.up * 180);
+        }
+    }
 }

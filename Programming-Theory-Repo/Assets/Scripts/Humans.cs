@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Humans : GeneralControl
 {
@@ -9,8 +10,6 @@ public class Humans : GeneralControl
     private List<GameObject> dogs = new List<GameObject>();
     private AudioSource audioSourceHuman;
     private bool isScared = false;
-    private bool isScaredDog = false;
-    private Vector3 ghostPosition = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +19,10 @@ public class Humans : GeneralControl
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isScaredDog)
-        {
-            transform.Translate(-GetScaredDirection(dogs[0].transform.position) * Time.deltaTime * speed);
-        }
+
         if (isScared)
         {
-            transform.Translate(GetScaredDirection(ghostPosition) * Time.deltaTime * speed);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
     }
     protected override void OnTriggerEnter(Collider other)
@@ -42,7 +38,7 @@ public class Humans : GeneralControl
 
         if (other.gameObject.CompareTag("Dog"))
         {
-            dogs.Add(other.gameObject.transform.parent.gameObject);
+            dogs.Remove(other.gameObject.transform.parent.gameObject);
         }
     }
 
@@ -53,22 +49,19 @@ public class Humans : GeneralControl
         {
             AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
             audioSource.Play();
-            isScaredDog = true;
-            StartCoroutine(ScaredDogNoMore());
+            Debug.Log(dogs[0].transform.position);
+            RotateToward(dogs[0].transform.position);
         }
         else
         {
-            ghostPosition = position;
             audioSourceHuman.Play();
-            isScared = true;
-            StartCoroutine(ScaredNoMore());
+            RotateToward(position, true);
         }
+        isScared = true;
+        StartCoroutine(ScaredNoMore());
     }
-    private IEnumerator ScaredDogNoMore()
-    {
-        yield return new WaitForSeconds(3);
-        isScaredDog = false;
-    }
+
+
     private IEnumerator ScaredNoMore()
     {
         yield return new WaitForSeconds(3);
