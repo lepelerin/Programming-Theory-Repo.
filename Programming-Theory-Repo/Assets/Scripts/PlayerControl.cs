@@ -82,10 +82,10 @@ public class PlayerControl : GeneralControl
                 Vector3 CatsVector = Vector3.zero;
                 for (int i = 0; i < cats.Count; i++)
                 {
-                    Debug.Log(cats[i].transform.position);
+                    AudioSource audioSource = cats[i].GetComponent<AudioSource>();
+                    audioSource.Play();
                     CatsVector += cats[i].transform.position;
                 }
-                Debug.Log(CatsVector);
                 Scared(CatsVector);
             }
             else

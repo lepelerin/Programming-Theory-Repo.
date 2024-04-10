@@ -37,6 +37,8 @@ public class Humans : GeneralControl
     {
         if(dogs.Count > 0)
         {
+            AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
+            audioSource.Play();
             controlRigidbody.AddForce(-GetScaredDirection(dogs[0].transform.position) * forceMultiplicator, ForceMode.Impulse);
         }
         else
