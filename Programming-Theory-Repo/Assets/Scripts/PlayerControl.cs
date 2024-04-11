@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerControl : GeneralControl
 {
@@ -16,14 +17,14 @@ public class PlayerControl : GeneralControl
 
     public delegate void Notify(Vector3 position);
     public event Notify ScaringHumans;
-
+    private Vector3 scaredVector = Vector3.zero;
+    private bool IsScared = false;
     private List<GameObject> cats = new List<GameObject>();
 
     private
 
     void Start()
     {
-        controlRigidbody = GetComponent<Rigidbody>();
         targetCamera.transform.rotation = transform.rotation;
         animatorGhost = ghost.GetComponent<Animator>();
         audioSourceGhost = GetComponent<AudioSource>();
@@ -38,6 +39,7 @@ public class PlayerControl : GeneralControl
     {
         RotateCamera();
         MovePlayer();
+        ScaredMove();
     }
     void LateUpdate()
     {
@@ -55,23 +57,25 @@ public class PlayerControl : GeneralControl
     //ABSTRACTION
     void MovePlayer()
     {
-        float inputVertical = Input.GetAxis("Vertical");
-        float inputHorizontal = Input.GetAxis("Horizontal");
-        float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
-        if (inputHorizontal != 0 || inputVertical != 0)
+        if (!IsScared)
         {
-            animatorGhost.SetBool("IsMoving",true);
-            transform.rotation = targetCamera.transform.rotation;
-        }
-        else
-        {
-            animatorGhost.SetBool("IsMoving", false);
-        }
-        transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
-        transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
-        transform.Rotate(Vector3.up * angle);
+            float inputVertical = Input.GetAxis("Vertical");
+            float inputHorizontal = Input.GetAxis("Horizontal");
+            float angle = Mathf.Atan2(inputHorizontal, inputVertical) * Mathf.Rad2Deg;
+            if (inputHorizontal != 0 || inputVertical != 0)
+            {
+                animatorGhost.SetBool("IsMoving", true);
+                transform.rotation = targetCamera.transform.rotation;
+            }
+            else
+            {
+                animatorGhost.SetBool("IsMoving", false);
+            }
+            transform.Translate(Vector3.forward * Time.deltaTime * inputVertical * speed);
+            transform.Translate(Vector3.right * Time.deltaTime * inputHorizontal * speed);
+            transform.Rotate(Vector3.up * angle);
 
-
+        }
     }
     void ScareHuman()
     {
@@ -101,7 +105,6 @@ public class PlayerControl : GeneralControl
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
         if (other.gameObject.CompareTag("Human"))
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
@@ -120,6 +123,27 @@ public class PlayerControl : GeneralControl
         if (other.gameObject.CompareTag("Cat"))
         {
             cats.Remove(other.gameObject.transform.parent.gameObject);
+        }
+    }
+
+    public override void Scared(Vector3 position)
+    {
+        
+        RotateToward(position, true);
+
+        IsScared = true;
+        StartCoroutine(ScaredNoMore());
+    }
+    IEnumerator ScaredNoMore()
+    {
+        yield return new WaitForSeconds(3);
+        IsScared = false;
+    }
+    private void ScaredMove()
+    {
+        if (IsScared)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
     }
 }
