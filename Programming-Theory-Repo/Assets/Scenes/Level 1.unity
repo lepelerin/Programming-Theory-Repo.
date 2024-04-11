@@ -871,7 +871,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2483226507083651714, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.68
+      value: 13.79
       objectReference: {fileID: 0}
     - target: {fileID: 2483226507083651714, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: m_LocalPosition.y
@@ -879,7 +879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2483226507083651714, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2483226507083651714, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2295,22 +2295,6 @@ PrefabInstance:
     - target: {fileID: 3976300957157979477, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
       propertyPath: m_Name
       value: Human
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
-      propertyPath: m_Mass
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 6931750892195659877, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9220853585401890292, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
       propertyPath: m_LocalPosition.x

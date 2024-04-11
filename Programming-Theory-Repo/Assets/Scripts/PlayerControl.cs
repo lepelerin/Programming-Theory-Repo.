@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerControl : GeneralControl
@@ -42,6 +43,7 @@ public class PlayerControl : GeneralControl
     private void Update()
     {
         ScareHuman();
+        RestartLevel();
     }
     void FixedUpdate()
     {
@@ -63,7 +65,7 @@ public class PlayerControl : GeneralControl
         if (Physics.Raycast(Followingcamera.transform.position, transform.position - Followingcamera.transform.position, out RaycastHit hit, 10f))
         {
             //Debug.Log(hit.collider.gameObject+" ////" + hit.collider.gameObject.layer.ToString());
-            if (!hit.collider.gameObject.CompareTag("Player") )
+            if (!hit.collider.gameObject.CompareTag("Player"))
             {
                 if (obstruction != hit.transform)
                 {
@@ -104,7 +106,7 @@ public class PlayerControl : GeneralControl
         {
             if (FaceWall())
                 speed = 0;
-            else speed= initialSpeed;
+            else speed = initialSpeed;
 
             float inputVertical = Input.GetAxis("Vertical");
             float inputHorizontal = Input.GetAxis("Horizontal");
@@ -125,10 +127,10 @@ public class PlayerControl : GeneralControl
         }
     }
 
-    bool  FaceWall()
+    bool FaceWall()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        if(Physics.Raycast(transform.position, fwd, out RaycastHit hit,0.5f))
+        if (Physics.Raycast(transform.position, fwd, out RaycastHit hit, 0.5f))
         {
             return hit.collider.gameObject.CompareTag("Wall");
         }
@@ -160,6 +162,11 @@ public class PlayerControl : GeneralControl
         }
     }
 
+    private void RestartLevel()
+    {
+        if (Input.GetButtonDown("Fire2"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -186,7 +193,7 @@ public class PlayerControl : GeneralControl
 
     public override void Scared(Vector3 position)
     {
-        
+
         RotateToward(position, true);
 
         IsScared = true;
