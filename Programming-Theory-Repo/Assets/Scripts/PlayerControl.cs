@@ -132,12 +132,14 @@ public class PlayerControl : GeneralControl
         RotateToward(position, true);
 
         IsScared = true;
+        animatorGhost.SetBool("IsMoving", true);
         StartCoroutine(ScaredNoMore());
     }
     IEnumerator ScaredNoMore()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         IsScared = false;
+        animatorGhost.SetBool("IsMoving", false);
     }
     private void ScaredMove()
     {
