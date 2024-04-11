@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerControl : GeneralControl
 {
     [SerializeField] GameObject targetCamera;
+    [SerializeField] GameObject Followingcamera;
+    [SerializeField] float zoomSpeed;
+    [SerializeField] float Zoomposition;
+
     [SerializeField] float speed;
     [SerializeField] float rotaionSpeed;
 
@@ -21,11 +26,12 @@ public class PlayerControl : GeneralControl
     private bool IsScared = false;
     private List<GameObject> cats = new List<GameObject>();
 
-    private
+    private Transform obstruction;
 
     void Start()
     {
         targetCamera.transform.rotation = transform.rotation;
+        obstruction = transform;
         animatorGhost = ghost.GetComponent<Animator>();
         audioSourceGhost = GetComponent<AudioSource>();
     }
@@ -44,11 +50,39 @@ public class PlayerControl : GeneralControl
     void LateUpdate()
     {
         PositionCamera();
+        ViewObstructed();
     }
     void PositionCamera()
     {
         targetCamera.transform.position = transform.position;
     }
+    void ViewObstructed()
+    {
+        if (Physics.Raycast(Followingcamera.transform.position, transform.position - Followingcamera.transform.position, out RaycastHit hit, 10f))
+        {
+            Debug.Log(hit.collider.gameObject+" ////" + hit.collider.gameObject.layer.ToString());
+            if (!hit.collider.gameObject.CompareTag("Player") )
+            {
+                obstruction = hit.transform;
+                obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                if (Vector3.Distance(obstruction.position, Followingcamera.transform.position) >= 3f && Vector3.Distance(Followingcamera.transform.position, transform.position) >= 1.5f)
+                {
+                    Followingcamera.transform.Translate(Vector3.forward * 2f * Time.deltaTime);
+                }
+
+            }
+            else
+            {
+
+                obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                if (Vector3.Distance(Followingcamera.transform.position, transform.position) < 10f)
+                {
+                    Followingcamera.transform.Translate(Vector3.back * 2f * Time.deltaTime);
+                }
+            }
+        }
+    }
+
     void RotateCamera()
     {
         float inputRotational = Input.GetAxis("Rotational");
