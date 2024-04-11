@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 3738050104916040016}
   m_Layer: 0
   m_Name: WallWindowBay4m
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 9129912355462327020}
   m_Layer: 0
   m_Name: WallWindowBay4m
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

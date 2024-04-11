@@ -342,13 +342,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172046491}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.08280819, y: 0, z: 0, w: 0.9965655}
   m_LocalPosition: {x: 0, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216872321}
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.5, y: 0, z: 0}
 --- !u!114 &172046495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,10 +910,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3535577842123258657, guid: 232039684d9291c4181e280617f99185, type: 3}
-      propertyPath: zoomSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3535577842123258657, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 1216872320}
@@ -921,13 +917,21 @@ PrefabInstance:
       propertyPath: Followingcamera
       value: 
       objectReference: {fileID: 172046491}
+    - target: {fileID: 4229438103032579472, guid: 232039684d9291c4181e280617f99185, type: 3}
+      propertyPath: m_Mass
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229438103032579472, guid: 232039684d9291c4181e280617f99185, type: 3}
+      propertyPath: m_Interpolate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229438103032579472, guid: 232039684d9291c4181e280617f99185, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6668797861154242059, guid: 232039684d9291c4181e280617f99185, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7263744338612324854, guid: 232039684d9291c4181e280617f99185, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2293,8 +2297,16 @@ PrefabInstance:
       value: Human
       objectReference: {fileID: 0}
     - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
+      propertyPath: m_Mass
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256639101605911468, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 6931750892195659877, guid: 0e2850f779a0dab4c9eb14c36aa5fafd, type: 3}
       propertyPath: m_Layer

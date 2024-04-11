@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1886578746083416474}
   m_Layer: 0
   m_Name: WallDoor2m
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 6465292270957508001}
   m_Layer: 0
   m_Name: WallDoorFrame2m
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
