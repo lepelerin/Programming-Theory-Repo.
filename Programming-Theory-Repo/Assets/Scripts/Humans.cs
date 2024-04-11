@@ -9,11 +9,15 @@ public class Humans : GeneralControl
     [SerializeField] float speed;
     private List<GameObject> dogs = new List<GameObject>();
     private AudioSource audioSourceHuman;
+
+    [SerializeField] GameObject HumanMesh;
+    private Animator animatorHuman;
     private bool isScared = false;
     // Start is called before the first frame update
     void Start()
     {
         audioSourceHuman = GetComponent<AudioSource>();
+        animatorHuman = HumanMesh.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -22,7 +26,13 @@ public class Humans : GeneralControl
 
         if (isScared)
         {
+            animatorHuman.SetFloat("speed_f", speed);
+            animatorHuman.Play("m_run");
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        }
+        else
+        {
+            animatorHuman.SetFloat("speed_f", 0);
         }
     }
     protected override void OnTriggerEnter(Collider other)
