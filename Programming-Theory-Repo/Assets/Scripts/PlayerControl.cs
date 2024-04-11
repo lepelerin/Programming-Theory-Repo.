@@ -34,6 +34,7 @@ public class PlayerControl : GeneralControl
         obstruction = transform;
         animatorGhost = ghost.GetComponent<Animator>();
         audioSourceGhost = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -63,7 +64,11 @@ public class PlayerControl : GeneralControl
             Debug.Log(hit.collider.gameObject+" ////" + hit.collider.gameObject.layer.ToString());
             if (!hit.collider.gameObject.CompareTag("Player") )
             {
-                obstruction = hit.transform;
+                if (obstruction != hit.transform)
+                {
+                    obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                    obstruction = hit.transform;
+                }
                 obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 if (Vector3.Distance(obstruction.position, Followingcamera.transform.position) >= 3f && Vector3.Distance(Followingcamera.transform.position, transform.position) >= 1.5f)
                 {
@@ -75,7 +80,7 @@ public class PlayerControl : GeneralControl
             {
 
                 obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                if (Vector3.Distance(Followingcamera.transform.position, transform.position) < 10f)
+                if (Vector3.Distance(Followingcamera.transform.position, transform.position) < Zoomposition)
                 {
                     Followingcamera.transform.Translate(Vector3.back * 2f * Time.deltaTime);
                 }
