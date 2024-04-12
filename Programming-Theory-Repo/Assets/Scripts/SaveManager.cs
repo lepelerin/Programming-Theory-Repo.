@@ -37,6 +37,7 @@ public class SaveManager : MonoBehaviour
     {
         player.scene = level;
         SavePlayer();
+
         MusicManager.Instance.PlayMusic(level);
         SceneManager.LoadScene(level);
     }

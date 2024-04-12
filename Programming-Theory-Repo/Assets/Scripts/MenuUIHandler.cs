@@ -37,6 +37,7 @@ public class MenuUIHandler : MonoBehaviour
         startScreen.SetActive(false);
         saveScreen.SetActive(true);
         saveOption.SetActive(false);
+        newSaveScreen.SetActive(false);
         eventSystem.SetSelectedGameObject( GameObject.Find("Save 1 Button"));
     }
     public void Quit()
@@ -80,7 +81,6 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void PlayNewGame()
     {
-        Debug.Log(playerNameField.text);
         SaveManager.Instance.SetPlayerName(playerNameField.text);
         SaveManager.Instance.LoadLevel(1);
     }

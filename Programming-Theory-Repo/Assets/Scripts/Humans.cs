@@ -19,6 +19,7 @@ public class Humans : GeneralControl
     {
         audioSourceHuman = GetComponent<AudioSource>();
         animatorHuman = HumanMesh.GetComponent<Animator>();
+        Debug.Log(SaveManager.Instance.GetPlayer().scene +"Start");
     }
 
 
@@ -92,11 +93,17 @@ public class Humans : GeneralControl
     {
         if (collision.gameObject.CompareTag("Door"))
         {
+            //Destroy(gameObject);
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
             RotateWhenFaceWall(collision);
         }
+    }
+
+    private void OnDestroy()
+    {
+        SaveManager.Instance.LoadLevel(SaveManager.Instance.GetPlayer().scene + 1);
     }
 }

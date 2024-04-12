@@ -23,7 +23,7 @@ public class MusicManager : MonoBehaviour
             Debug.Log(json);*/
             TextAsset textFile = (TextAsset)Resources.Load(musicPath);
             string json = textFile.text;
-            musicByLevel = JsonConvert.DeserializeObject<Dictionary<int, int>>(json);
+            musicByLevel = JsonConvert.DeserializeObject<Dictionary<int,int>>(json);
 
             DontDestroyOnLoad(gameObject);
             PlayMusic(0);
