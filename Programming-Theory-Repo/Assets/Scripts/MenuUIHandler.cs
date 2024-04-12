@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -11,11 +12,6 @@ public class MenuUIHandler : MonoBehaviour
     [SerializeField] GameObject SaveScreen;
     [SerializeField] AudioClip StartMusic;
 
-    private void Awake()
-    {
-        MusicManager.Instance.SetMusic(StartMusic);
-        MusicManager.Instance.PlayMusic();
-    }
 
     public void StartGame()
     {
@@ -31,9 +27,15 @@ public class MenuUIHandler : MonoBehaviour
 #endif
     }
 
-    public void Save(string path)
+    public void Save(int path)
     {
-        SceneManager.LoadScene(1);
+        if (!SaveManager.Instance.LoadPlayer(path))
+        {
+            //create player
+            SaveManager.Instance.LoadLevel(1);
+        }
+        else
+            SaveManager.Instance.LoadLevel(1);
     }
 
     public void Back()
