@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
     private AudioSource musicSource;
     [SerializeField] AudioClip[] musics;
     private Dictionary<int, int> musicByLevel;
+    private const string musicPath = "Text/MusicDico";
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class MusicManager : MonoBehaviour
             musicSource = GetComponent<AudioSource>();
             /*string json = JsonConvert.SerializeObject(musicByLevel);
             Debug.Log(json);*/
-            TextAsset textFile = (TextAsset)Resources.Load("MusicDico");
+            TextAsset textFile = (TextAsset)Resources.Load(musicPath);
             string json = textFile.text;
             musicByLevel = JsonConvert.DeserializeObject<Dictionary<int, int>>(json);
 
