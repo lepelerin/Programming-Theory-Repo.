@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 
 public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] GameObject startScreen;
     [SerializeField] GameObject SaveScreen;
+    [SerializeField] AudioClip StartMusic;
+
+    private void Awake()
+    {
+        MusicManager.Instance.SetMusic(StartMusic);
+        MusicManager.Instance.PlayMusic();
+    }
+
     public void StartGame()
     {
         startScreen.SetActive(false);
