@@ -10,7 +10,6 @@ public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] GameObject startScreen;
     [SerializeField] GameObject SaveScreen;
-    [SerializeField] AudioClip StartMusic;
 
 
     public void StartGame()
