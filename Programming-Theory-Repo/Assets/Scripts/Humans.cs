@@ -95,15 +95,11 @@ public class Humans : GeneralControl
         {
             //Destroy(gameObject);
             Destroy(gameObject);
+            SaveManager.Instance.LoadNextLevel();
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
             RotateWhenFaceWall(collision);
         }
-    }
-
-    private void OnDestroy()
-    {
-        SaveManager.Instance.LoadLevel(SaveManager.Instance.GetPlayer().scene + 1);
     }
 }

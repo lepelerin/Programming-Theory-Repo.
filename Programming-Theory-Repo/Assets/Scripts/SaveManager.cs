@@ -10,19 +10,26 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance { get; private set; }
 
     private Save player;
-
+    private bool isLooding;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             player = new Save();
+            isLooding=false;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        isLooding=false ;
     }
 
     public void SetPlayerName(string name)
@@ -78,4 +85,13 @@ public class SaveManager : MonoBehaviour
     {
         File.Delete(Application.persistentDataPath + $"/savefile{player.safeFile}.json");
     }
+    public void LoadNextLevel()
+    {
+        if(!isLooding)
+        {
+            isLooding = true;
+            Instance.LoadLevel(Instance.GetPlayer().scene + 1);
+        }
+    }
+    
 }
