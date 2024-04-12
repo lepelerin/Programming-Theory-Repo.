@@ -4,18 +4,26 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] GameObject startScreen;
-    [SerializeField] GameObject SaveScreen;
+    [SerializeField] GameObject saveScreen;
+    [SerializeField] GameObject eventSystemObject;
+    private EventSystem eventSystem;
 
+    private void Start()
+    {
+        eventSystem=eventSystemObject.GetComponent<EventSystem>();
+    }
 
     public void StartGame()
     {
         startScreen.SetActive(false);
-        SaveScreen.SetActive(true);
+        saveScreen.SetActive(true);
+        eventSystem.SetSelectedGameObject( GameObject.Find("Save 1 Button"));
     }
     public void Quit()
     {
@@ -40,6 +48,7 @@ public class MenuUIHandler : MonoBehaviour
     public void Back()
     {
         startScreen.SetActive(true);
-        SaveScreen.SetActive(false);
+        saveScreen.SetActive(false);
+        eventSystem.SetSelectedGameObject(GameObject.Find("Start Button"));
     }
 }
