@@ -13,10 +13,12 @@ public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] GameObject startScreen;
     [SerializeField] GameObject saveScreen;
+    [SerializeField] GameObject newSaveScreen;
     [SerializeField] GameObject eventSystemObject;
     [SerializeField] TextMeshProUGUI[] buttonSaveText;
     [SerializeField] GameObject saveOption;
     [SerializeField] TextMeshProUGUI playerName;
+    [SerializeField] TextMeshProUGUI playerNameField;
     private EventSystem eventSystem;
     private Save[] playerArray;
     private void Start()
@@ -57,7 +59,12 @@ public class MenuUIHandler : MonoBehaviour
             eventSystem.SetSelectedGameObject(GameObject.Find("Start With This Save"));
         }
         else
-            SaveManager.Instance.LoadLevel(1);
+        {
+            SaveManager.Instance.SetPlayerSaveFile(path);
+            newSaveScreen.SetActive(true);
+            saveScreen.SetActive(false);
+            eventSystem.SetSelectedGameObject(GameObject.Find("NameField"));
+        }
     }
 
     public void Back()
@@ -70,6 +77,12 @@ public class MenuUIHandler : MonoBehaviour
     {
 
         SaveManager.Instance.LoadLevel(SaveManager.Instance.GetPlayer().scene);
+    }
+    public void PlayNewGame()
+    {
+        Debug.Log(playerNameField.text);
+        SaveManager.Instance.SetPlayerName(playerNameField.text);
+        SaveManager.Instance.LoadLevel(1);
     }
     public void DeleteFile()
     {

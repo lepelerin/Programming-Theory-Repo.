@@ -29,6 +29,10 @@ public class SaveManager : MonoBehaviour
     {
         player.name = name;
     }
+    public void SetPlayerSaveFile(int safeFile)
+    {
+        player.safeFile = safeFile;
+    }
     public void LoadLevel(int level)
     {
         player.scene = level;
