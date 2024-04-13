@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MenuPauseHandler : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class MenuPauseHandler : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
 
+    }
+    public void BackToTitle()
+    {
+        SceneManager.LoadScene(0);
+        MusicManager.Instance.PlayMusic(0);
     }
 
     public void Quit()
