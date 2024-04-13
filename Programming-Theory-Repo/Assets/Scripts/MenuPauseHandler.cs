@@ -43,6 +43,7 @@ public class MenuPauseHandler : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         MusicManager.Instance.PlayMusic(0);
+        Resume();
     }
 
     public void Quit()
