@@ -31,6 +31,7 @@ public class PlayerControl : GeneralControl
     private List<GameObject> cats = new List<GameObject>();
 
     private Transform obstruction;
+    private MenuPauseHandler menuPauseHandler;
 
     void Start()
     {
@@ -39,17 +40,24 @@ public class PlayerControl : GeneralControl
         animatorGhost = ghost.GetComponent<Animator>();
         audioSourceGhost = GetComponent<AudioSource>();
         initialSpeed = speed;
+        menuPauseHandler = GameObject.Find("MenuPauseHandler").GetComponent<MenuPauseHandler>();
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        if(!menuPauseHandler.IsPaused)
+        {
+            ScareHuman();
+            RestartLevel();
+        }
+    }
 
     void FixedUpdate()
     {
         RotateCamera();
         MovePlayer();
         ScaredMove();
-        ScareHuman();
-        RestartLevel();
     }
     void LateUpdate()
     {

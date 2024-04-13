@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
-
     private Save player;
     private bool isLooding;
     private void Awake()

@@ -9,7 +9,8 @@ public class MenuPauseHandler : MonoBehaviour
     [SerializeField] GameObject PauseScreen;
     [SerializeField] GameObject eventSystemObject;
     private EventSystem eventSystem;
-
+    private bool isPaused = false;
+    public bool IsPaused { get { return isPaused; } }
     private void Start()
     {
         eventSystem = eventSystemObject.GetComponent<EventSystem>();
@@ -27,11 +28,13 @@ public class MenuPauseHandler : MonoBehaviour
         Time.timeScale = 0;
         PauseScreen.SetActive(true);
         eventSystem.SetSelectedGameObject(GameObject.Find("Continue Button"));
+        isPaused = true;
     }
     public void Resume()
     {
         Time.timeScale = 1;
         PauseScreen.SetActive(false);
+        isPaused = false;
     }
 
     public void Quit()
