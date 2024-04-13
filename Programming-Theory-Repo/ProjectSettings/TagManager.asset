@@ -10,6 +10,7 @@ TagManager:
   - Dog
   - Cat
   - Door
+  - Wall
   layers:
   - Default
   - TransparentFX
