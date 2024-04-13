@@ -32,9 +32,11 @@ public class MenuPauseHandler : MonoBehaviour
     }
     public void Resume()
     {
-        Time.timeScale = 1;
         PauseScreen.SetActive(false);
+        Input.ResetInputAxes();
         isPaused = false;
+        Time.timeScale = 1;
+
     }
 
     public void Quit()
