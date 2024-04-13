@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4045666840150889352}
   - component: {fileID: 503013507261683735}
   - component: {fileID: 4143246515234314612}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DetectionRange
   m_TagString: Cat
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

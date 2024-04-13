@@ -92,7 +92,9 @@ public class Humans : GeneralControl
     {
         if (collision.gameObject.CompareTag("Door"))
         {
+            //Destroy(gameObject);
             Destroy(gameObject);
+            SaveManager.Instance.LoadNextLevel();
         }
         if (collision.gameObject.CompareTag("Wall"))
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -18,6 +19,7 @@ public class PlayerControl : GeneralControl
     [SerializeField] float rotaionSpeed;
 
     [SerializeField] GameObject ghost;
+
     private Animator animatorGhost;
     private AudioSource audioSourceGhost;
     // Start is called before the first frame update
@@ -29,6 +31,7 @@ public class PlayerControl : GeneralControl
     private List<GameObject> cats = new List<GameObject>();
 
     private Transform obstruction;
+    private MenuPauseHandler menuPauseHandler;
 
     void Start()
     {
@@ -37,14 +40,19 @@ public class PlayerControl : GeneralControl
         animatorGhost = ghost.GetComponent<Animator>();
         audioSourceGhost = GetComponent<AudioSource>();
         initialSpeed = speed;
+        menuPauseHandler = GameObject.Find("MenuPauseHandler").GetComponent<MenuPauseHandler>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        ScareHuman();
-        RestartLevel();
+        if(!menuPauseHandler.IsPaused)
+        {
+            ScareHuman();
+            RestartLevel();
+        }
     }
+
     void FixedUpdate()
     {
         RotateCamera();
@@ -212,5 +220,16 @@ public class PlayerControl : GeneralControl
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
+    }
+
+
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }
