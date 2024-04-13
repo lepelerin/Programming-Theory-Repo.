@@ -19,7 +19,6 @@ public class Humans : GeneralControl
     {
         audioSourceHuman = GetComponent<AudioSource>();
         animatorHuman = HumanMesh.GetComponent<Animator>();
-        Debug.Log(SaveManager.Instance.GetPlayer().scene +"Start");
     }
 
 
