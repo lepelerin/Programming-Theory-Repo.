@@ -35,16 +35,21 @@ public class Humans : GeneralControl
         {
             animatorHuman.SetFloat("speed_f", 0);
         }
+        CheckMovement();
     }
+
+    void CheckMovement()
+    {
+        if(transform.position.y != 0) 
+        {
+            transform.position = new Vector3(transform.position.x,0,transform.position.z);
+        }
+    }
+
     void RotateWhenFaceWall(Collision collision)
     {
-/*
-
-        float angle = Vector3.Angle(collision.GetContact(0).normal, -transform.forward);
-        Debug.Log(angle);
-        transform.Rotate(Vector3.up * (angle + 90));
-*/
         transform.rotation = Quaternion.LookRotation(collision.GetContact(0).normal, transform.up);
+        transform.SetPositionAndRotation(transform.position, new Quaternion(0, transform.rotation.y, 0, transform.rotation.w));
     }
     protected override void OnTriggerEnter(Collider other)
     {
