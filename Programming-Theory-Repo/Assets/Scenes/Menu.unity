@@ -2558,6 +2558,8 @@ MonoBehaviour:
   musics:
   - {fileID: 8300000, guid: 0d4efd6396d61904cb0e8730347a6428, type: 3}
   - {fileID: 8300000, guid: a48e8099c604827418f99efbf6caaf72, type: 3}
+  - {fileID: 8300000, guid: 753c732a205f3dc4a9c7c2d884728cc6, type: 3}
+  - {fileID: 8300000, guid: cff5492ecb315d84e8d6074991c27f4f, type: 3}
 --- !u!4 &1314076891
 Transform:
   m_ObjectHideFlags: 0
