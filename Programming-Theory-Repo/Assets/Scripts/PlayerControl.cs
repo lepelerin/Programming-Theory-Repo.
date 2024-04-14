@@ -219,6 +219,8 @@ public class PlayerControl : GeneralControl
         if (IsScared)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            if (FaceWall())
+                transform.Rotate(Vector3.up * 180);
         }
     }
 
