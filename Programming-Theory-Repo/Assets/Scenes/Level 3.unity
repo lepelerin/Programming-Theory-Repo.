@@ -1191,6 +1191,70 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b77c286182d5f224aa9554910ad57a04, type: 3}
+--- !u!1001 &975698857
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 332241200997500083, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: info
+      value: 'Dog will attract human.
+
+        Once near a dog the human is not scared
+        anymore'
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.730093
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0001001358
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.4546232
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 716833498039470725, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004469619075501666, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
+      propertyPath: m_Name
+      value: InfoPoint
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e4944411e94158499e9aaf7b0b1102e, type: 3}
 --- !u!1001 &991715787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2599,3 +2663,4 @@ SceneRoots:
   - {fileID: 991715787}
   - {fileID: 403532249}
   - {fileID: 1782667633}
+  - {fileID: 975698857}
