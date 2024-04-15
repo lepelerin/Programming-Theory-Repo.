@@ -13,7 +13,7 @@ public class InfoPoint : MonoBehaviour
     [SerializeField] float hightSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] TextMeshProUGUI text;
-    [SerializeField] string info;
+    [SerializeField][TextArea(15, 20)] string info;
     [SerializeField] GameObject Canvas;
     [SerializeField] GameObject Detector;
     private bool isMovingUp;
