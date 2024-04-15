@@ -186,6 +186,12 @@ public class PlayerControl : GeneralControl
         {
             cats.Add(other.gameObject.transform.parent.gameObject);
         }
+        if (other.gameObject.CompareTag("Info"))
+        {
+            InfoPoint infoPoint = other.gameObject.transform.parent.gameObject.GetComponentInParent<InfoPoint>();
+            infoPoint.ShowCanvas();
+        }
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -196,6 +202,11 @@ public class PlayerControl : GeneralControl
         if (other.gameObject.CompareTag("Cat"))
         {
             cats.Remove(other.gameObject.transform.parent.gameObject);
+        }
+        if (other.gameObject.CompareTag("Info"))
+        {
+            InfoPoint infoPoint = other.gameObject.transform.parent.gameObject.GetComponentInParent<InfoPoint>();
+            infoPoint.HideCanvas();
         }
     }
 
