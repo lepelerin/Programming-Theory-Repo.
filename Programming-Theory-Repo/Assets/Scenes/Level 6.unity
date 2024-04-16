@@ -3940,11 +3940,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5941695636645027745, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
       propertyPath: positionNode.Array.data[0].x
-      value: 10
+      value: 9.840372
       objectReference: {fileID: 0}
     - target: {fileID: 5941695636645027745, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
       propertyPath: positionNode.Array.data[0].z
-      value: -6
+      value: -6.041634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941695636645027745, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
+      propertyPath: positionNode.Array.data[1].x
+      value: 6.4748755
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941695636645027745, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
+      propertyPath: positionNode.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941695636645027745, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
+      propertyPath: positionNode.Array.data[1].z
+      value: -1.567174
       objectReference: {fileID: 0}
     - target: {fileID: 6592745231113353340, guid: fdd89e480453402498aeafdf93286f8f, type: 3}
       propertyPath: m_LocalPosition.x

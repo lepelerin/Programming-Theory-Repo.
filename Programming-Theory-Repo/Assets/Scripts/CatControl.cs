@@ -12,7 +12,7 @@ public class CatControl : GeneralControl
     }
 
 
-    [SerializeField] List<Vector3> positionNode;
+    [SerializeField]public List<Vector3> positionNode;
     [SerializeField] GameObject catAnimator;
     private int currentNode;
     private Animator animator;
