@@ -31,6 +31,7 @@ public class SaveManager : MonoBehaviour
         isLooding=false ;
     }
 
+    // ENCAPSULATION
     public void SetPlayerName(string name)
     {
         player.name = name;

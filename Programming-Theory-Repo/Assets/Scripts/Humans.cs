@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// INHERITANCE
 public class Humans : GeneralControl
 {
     private AudioSource audioSourceHuman;

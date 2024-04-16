@@ -34,6 +34,9 @@ public abstract class GeneralControl : MonoBehaviour
     {
         return (transform.position - position).normalized;
     }
+
+
+    //POLYMORPHISM
     protected void RotateToward(Vector3 position)
     {
         RotateToward(position,false);
