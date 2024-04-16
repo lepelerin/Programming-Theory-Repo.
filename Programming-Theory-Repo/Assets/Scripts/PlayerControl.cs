@@ -14,7 +14,6 @@ public class PlayerControl : GeneralControl
     [SerializeField] float zoomSpeed;
     [SerializeField] float Zoomposition;
 
-    [SerializeField] float speed;
     private float initialSpeed;
     [SerializeField] float rotaionSpeed;
 

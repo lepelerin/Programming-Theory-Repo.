@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class GeneralControl : MonoBehaviour
 {
-    [SerializeField] protected float forceMultiplicator;
+    [SerializeField] protected float speed;
     protected List<GameObject> gameObjectsInRage = new List<GameObject>();
     // Start is called before the first frame update
     void Start()

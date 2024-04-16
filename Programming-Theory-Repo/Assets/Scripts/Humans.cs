@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class Humans : GeneralControl
 {
-    [SerializeField] float speed;
     private AudioSource audioSourceHuman;
     private IEnumerator coroutine;
     [SerializeField] GameObject HumanMesh;
