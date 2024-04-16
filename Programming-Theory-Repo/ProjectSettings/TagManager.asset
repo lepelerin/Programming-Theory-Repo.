@@ -11,6 +11,7 @@ TagManager:
   - Cat
   - Door
   - Wall
+  - Info
   layers:
   - Default
   - TransparentFX

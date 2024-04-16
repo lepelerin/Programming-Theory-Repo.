@@ -5,15 +5,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// INHERITANCE
 public class Humans : GeneralControl
 {
-    [SerializeField] float speed;
-    private List<GameObject> dogs = new List<GameObject>();
     private AudioSource audioSourceHuman;
-
+    private IEnumerator coroutine;
     [SerializeField] GameObject HumanMesh;
     private Animator animatorHuman;
     private bool isScared = false;
+    private bool isNearDog = false;
+    private bool isWallkingToDog = false;
+    AudioSource dogAudioSource;
+    Transform dogTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,52 +28,68 @@ public class Humans : GeneralControl
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isScared)
+        if (isScared && !isNearDog)
         {
             animatorHuman.SetFloat("speed_f", speed);
             animatorHuman.Play("m_run");
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
+        if(isWallkingToDog)
+        {
+            animatorHuman.SetFloat("speed_f", 0);
+            transform.LookAt(dogTransform);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed/4);
+        }
         else
         {
             animatorHuman.SetFloat("speed_f", 0);
         }
+        CheckMovement();
     }
+
+    void CheckMovement()
+    {
+        if(transform.position.y != 0) 
+        {
+            transform.position = new Vector3(transform.position.x,0,transform.position.z);
+        }
+    }
+
     void RotateWhenFaceWall(Collision collision)
     {
-/*
-
-        float angle = Vector3.Angle(collision.GetContact(0).normal, -transform.forward);
-        Debug.Log(angle);
-        transform.Rotate(Vector3.up * (angle + 90));
-*/
         transform.rotation = Quaternion.LookRotation(collision.GetContact(0).normal, transform.up);
+        transform.SetPositionAndRotation(transform.position, new Quaternion(0, transform.rotation.y, 0, transform.rotation.w));
     }
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Dog"))
         {
+            if(!isNearDog)
+            {
+                dogAudioSource = other.gameObject.transform.parent.gameObject.GetComponent<AudioSource>();
+                dogAudioSource.Play();
+            }
+            isNearDog=true;
+            dogTransform = other.gameObject.transform.parent.gameObject.transform;
+            isWallkingToDog = true;
+            StartCoroutine(WalkToDog());
 
-            dogs.Add(other.gameObject.transform.parent.gameObject);
         }
     }
-    private void OnTriggerExit(Collider other)
+    private IEnumerator WalkToDog()
     {
-
-        if (other.gameObject.CompareTag("Dog"))
-        {
-            dogs.Remove(other.gameObject.transform.parent.gameObject);
-        }
+        yield return new WaitForSeconds(1);
+        isWallkingToDog = false;
     }
 
     //POLYMORPHISM
     public override void Scared(Vector3 position)
     {
-        if (dogs.Count > 0)
+        if(coroutine!=null)
+            StopCoroutine(coroutine);
+        if (isNearDog)
         {
-            AudioSource audioSource = dogs[0].GetComponent<AudioSource>();
-            audioSource.Play();
-            RotateToward(dogs[0].transform.position);
+            dogAudioSource.Play();
         }
         else
         {
@@ -78,7 +97,8 @@ public class Humans : GeneralControl
             RotateToward(position, true);
         }
         isScared = true;
-        StartCoroutine(ScaredNoMore());
+        coroutine = ScaredNoMore();
+        StartCoroutine(coroutine);
     }
 
 

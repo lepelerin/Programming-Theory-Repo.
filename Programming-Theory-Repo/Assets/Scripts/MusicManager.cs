@@ -19,8 +19,6 @@ public class MusicManager : MonoBehaviour
         {
             Instance = this;
             musicSource = GetComponent<AudioSource>();
-            /*string json = JsonConvert.SerializeObject(musicByLevel);
-            Debug.Log(json);*/
             TextAsset textFile = (TextAsset)Resources.Load(musicPath);
             string json = textFile.text;
             musicByLevel = JsonConvert.DeserializeObject<Dictionary<int,int>>(json);
@@ -34,6 +32,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    //ABSTRACTION
     public void PlayMusic(int level)
     {
         musicSource.Stop();

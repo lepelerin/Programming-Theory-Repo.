@@ -14,7 +14,6 @@ public class PlayerControl : GeneralControl
     [SerializeField] float zoomSpeed;
     [SerializeField] float Zoomposition;
 
-    [SerializeField] float speed;
     private float initialSpeed;
     [SerializeField] float rotaionSpeed;
 
@@ -28,7 +27,6 @@ public class PlayerControl : GeneralControl
     public event Notify ScaringHumans;
 
     private bool IsScared = false;
-    private List<GameObject> cats = new List<GameObject>();
 
     private Transform obstruction;
     private MenuPauseHandler menuPauseHandler;
@@ -46,7 +44,7 @@ public class PlayerControl : GeneralControl
     // Update is called once per frame
     private void Update()
     {
-        if(!menuPauseHandler.IsPaused)
+        if (!menuPauseHandler.IsPaused)
         {
             ScareHuman();
             RestartLevel();
@@ -72,7 +70,6 @@ public class PlayerControl : GeneralControl
     {
         if (Physics.Raycast(Followingcamera.transform.position, transform.position - Followingcamera.transform.position, out RaycastHit hit, 10f))
         {
-            //Debug.Log(hit.collider.gameObject+" ////" + hit.collider.gameObject.layer.ToString());
             if (!hit.collider.gameObject.CompareTag("Player"))
             {
                 if (obstruction != hit.transform)
@@ -89,7 +86,6 @@ public class PlayerControl : GeneralControl
             }
             else
             {
-
                 obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                 if (Vector3.Distance(Followingcamera.transform.position, transform.position) < Zoomposition)
                 {
@@ -151,22 +147,8 @@ public class PlayerControl : GeneralControl
         if (Input.GetButtonDown("Fire1"))
         {
             audioSourceGhost.Play();
-            if (cats.Count > 0)
-            {
-                Vector3 CatsVector = Vector3.zero;
-                for (int i = 0; i < cats.Count; i++)
-                {
-                    AudioSource audioSource = cats[i].GetComponent<AudioSource>();
-                    audioSource.Play();
-                    CatsVector += cats[i].transform.position;
-                }
-                Scared(CatsVector);
-            }
-            else
-            {
-                animatorGhost.Play("attack_shift");
-                ScaringHumans?.Invoke(transform.position);
-            }
+            animatorGhost.Play("attack_shift");
+            ScaringHumans?.Invoke(transform.position);
         }
     }
 
@@ -182,10 +164,23 @@ public class PlayerControl : GeneralControl
         {
             ScaringHumans += other.gameObject.GetComponentInParent<Humans>().Scared;
         }
-        if (other.gameObject.CompareTag("Cat"))
+        if (other.gameObject.CompareTag("Cat") )
         {
-            cats.Add(other.gameObject.transform.parent.gameObject);
+
+            GameObject cat = other.gameObject.transform.parent.gameObject;
+            if (!IsScared)
+            {
+                AudioSource audioSource = cat.GetComponent<AudioSource>();
+                audioSource.Play();
+            }
+            Scared(cat.transform.position);
         }
+        if (other.gameObject.CompareTag("Info"))
+        {
+            InfoPoint infoPoint = other.gameObject.transform.parent.gameObject.GetComponentInParent<InfoPoint>();
+            infoPoint.ShowCanvas();
+        }
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -193,9 +188,10 @@ public class PlayerControl : GeneralControl
         {
             ScaringHumans -= other.gameObject.GetComponentInParent<Humans>().Scared;
         }
-        if (other.gameObject.CompareTag("Cat"))
+        if (other.gameObject.CompareTag("Info"))
         {
-            cats.Remove(other.gameObject.transform.parent.gameObject);
+            InfoPoint infoPoint = other.gameObject.transform.parent.gameObject.GetComponentInParent<InfoPoint>();
+            infoPoint.HideCanvas();
         }
     }
 
@@ -219,6 +215,8 @@ public class PlayerControl : GeneralControl
         if (IsScared)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            if (FaceWall())
+                transform.Rotate(Vector3.up * 180);
         }
     }
 

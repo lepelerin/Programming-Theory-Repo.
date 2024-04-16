@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2.86
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7978691416437394922
 Rigidbody:
@@ -218,7 +218,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!82 &9019282690808427254
 AudioSource:
@@ -426,15 +426,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6381190578936783005, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.67
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 6381190578936783005, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.67
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 6381190578936783005, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.67
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 6381190578936783005, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_LocalPosition.x
