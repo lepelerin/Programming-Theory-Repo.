@@ -10,8 +10,9 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
     private AudioSource musicSource;
     [SerializeField] AudioClip[] musics;
-    private Dictionary<int, int> musicByLevel;
+    private MusicByLevel[] musicByLevel;
     private const string musicPath = "Text/MusicDico";
+    [SerializeField] TextAsset textFile;
 
     private void Awake()
     {
@@ -19,9 +20,9 @@ public class MusicManager : MonoBehaviour
         {
             Instance = this;
             musicSource = GetComponent<AudioSource>();
-            TextAsset textFile = (TextAsset)Resources.Load(musicPath);
             string json = textFile.text;
-            musicByLevel = JsonConvert.DeserializeObject<Dictionary<int,int>>(json);
+
+            musicByLevel = JsonHelper.FromJson<MusicByLevel>(json);
 
             DontDestroyOnLoad(gameObject);
             PlayMusic(0);
@@ -35,9 +36,11 @@ public class MusicManager : MonoBehaviour
     //ABSTRACTION
     public void PlayMusic(int level)
     {
+
         musicSource.Stop();
-        musicSource.clip= musics[musicByLevel[level]];
+        musicSource.clip = musics[musicByLevel[level].song];
         musicSource.Play();
+
     }
 
 }

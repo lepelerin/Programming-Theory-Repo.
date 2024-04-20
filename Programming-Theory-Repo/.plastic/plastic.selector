@@ -1,0 +1,4 @@
+repository "Ghost Adventure@LePelerin@cloud"
+  path "/"
+    smartbranch "/main"    
+     

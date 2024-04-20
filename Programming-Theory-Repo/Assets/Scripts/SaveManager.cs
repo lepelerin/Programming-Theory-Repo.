@@ -16,7 +16,7 @@ public class SaveManager : MonoBehaviour
         {
             Instance = this;
             player = new Save();
-            isLooding=false;
+            isLooding = false;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -28,7 +28,7 @@ public class SaveManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        isLooding=false ;
+        isLooding = false;
     }
 
     // ENCAPSULATION
@@ -50,19 +50,38 @@ public class SaveManager : MonoBehaviour
     }
     public bool LoadPlayer(int saveFile)
     {
+        String json;
+        
+        if (PlayerPrefs.HasKey($"{saveFile}"))
+        {
+            json = PlayerPrefs.GetString($"{saveFile}");
+            player = JsonUtility.FromJson<Save>(json);
+            return true;
+
+        }
+        return false;
+        
+        /*
         string path = Application.persistentDataPath + $"/savefile{saveFile}.json";
         if (File.Exists(path))
         {
-            String json = File.ReadAllText(path);
+            json = File.ReadAllText(path);
             player = JsonUtility.FromJson<Save>(json);
             return true;
         }
         return false;
+        */
+
     }
     public void SavePlayer()
     {
         String json = JsonUtility.ToJson(player);
-        File.WriteAllText(Application.persistentDataPath + $"/savefile{player.safeFile}.json", json);
+        
+        PlayerPrefs.SetString($"{player.safeFile}", json);
+        PlayerPrefs.Save();
+
+        
+        //File.WriteAllText(Application.persistentDataPath + $"/savefile{player.safeFile}.json", json);
 
     }
     public Save[] GetAllPlayer()
@@ -83,15 +102,19 @@ public class SaveManager : MonoBehaviour
     }
     public void DeleteFile()
     {
-        File.Delete(Application.persistentDataPath + $"/savefile{player.safeFile}.json");
+        
+        PlayerPrefs.DeleteKey($"{player.safeFile}");
+        PlayerPrefs.Save();
+        //File.Delete(Application.persistentDataPath + $"/savefile{player.safeFile}.json");
+
     }
     public void LoadNextLevel()
     {
-        if(!isLooding)
+        if (!isLooding)
         {
             isLooding = true;
             Instance.LoadLevel(Instance.GetPlayer().scene + 1);
         }
     }
-    
+
 }

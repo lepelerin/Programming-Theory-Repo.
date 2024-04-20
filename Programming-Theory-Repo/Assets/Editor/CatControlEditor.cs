@@ -27,6 +27,7 @@ public class CatControlEditor : Editor
     [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected)]
     static void DrawGizmo(CatControl catControl, GizmoType gizmoType)
     {
+        //to improve
         for(int i = 0;i< catControl.positionNode.Count; i++)
         {
             Gizmos.DrawSphere(catControl.positionNode[i], 0.125f);
