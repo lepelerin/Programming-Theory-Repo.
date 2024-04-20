@@ -76,7 +76,6 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void PlayGame()
     {
-
         SaveManager.Instance.LoadLevel(SaveManager.Instance.GetPlayer().scene);
     }
     public void PlayNewGame()
